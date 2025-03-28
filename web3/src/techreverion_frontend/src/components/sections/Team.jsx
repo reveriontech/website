@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaFacebookF, FaLinkedinIn, FaYoutube, FaInstagram } from 'react-icons/fa';
 
 const Team = () => {
   // Team members data
@@ -53,12 +54,12 @@ const Team = () => {
     }
   ];
 
-  // Social media links (same for all team members in this example)
+  // Social media links with react-icons
   const socialLinks = [
-    { icon: "mdi-facebook", title: "Facebook", url: "#" },
-    { icon: "mdi-linkedin", title: "Linkedin", url: "#" },
-    { icon: "mdi-youtube", title: "Youtube", url: "#" },
-    { icon: "mdi-instagram", title: "Instagram", url: "#" }
+    { icon: <FaFacebookF />, title: "Facebook", url: "#" },
+    { icon: <FaLinkedinIn />, title: "Linkedin", url: "#" },
+    { icon: <FaYoutube />, title: "Youtube", url: "#" },
+    { icon: <FaInstagram />, title: "Instagram", url: "#" }
   ];
 
   return (
@@ -94,8 +95,12 @@ const Team = () => {
                   <ul className="list-unstyled social-icon mb-0 mt-4">
                     {socialLinks.map((social, index) => (
                       <li className="list-inline-item" key={index}>
-                        <a href={social.url}>
-                          <i className={`mdi ${social.icon}`} title={social.title}></i>
+                        <a 
+                          href={social.url} 
+                          className="rounded-circle" 
+                          title={social.title}
+                        >
+                          <i>{social.icon}</i>
                         </a>
                       </li>
                     ))}

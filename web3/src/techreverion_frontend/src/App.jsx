@@ -13,6 +13,7 @@ import Services from './components/sections/Services';
 import Team from './components/sections/Team';
 import Pricing from './components/sections/Pricing';
 import Contact from './components/sections/Contact';
+import ChatWidget from './components/sections/ChatWidget'; 
 
 function App() {
   useEffect(() => {
@@ -30,13 +31,14 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/" element={<About />} />
-        <Route path="/" element={<Services />} />
-        <Route path="/" element={<Team />} />
-        <Route path="/" element={<Pricing />} />
-        <Route path="/" element={<Contact />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/service" element={<Services />} />
+        <Route path="/team" element={<Team />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
       <Footer />
+      <ChatWidget />
       <a href="#" className="back-to-top" id="back-to-top">
         <i className="mdi mdi-chevron-up"></i>
       </a>

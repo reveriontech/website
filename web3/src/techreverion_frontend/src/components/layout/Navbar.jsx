@@ -1,12 +1,40 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
+// Import icons from react-icons
+import { FaBars, FaTimes } from 'react-icons/fa';
+// Import the AuthModal component
+import AuthModal from '../sections/AuthModal';
 
 const Navbar = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [isMobile, setIsMobile] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  // Auth modal states
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState('login'); // 'login' or 'signup'
+  
   const navbarCollapseRef = useRef(null);
   const isScrollingRef = useRef(false);
+  
+  // Check if we're in mobile view
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    // Initial check
+    checkMobile();
+    
+    // Add resize listener
+    window.addEventListener('resize', checkMobile);
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
   
   // Handle navbar sticky on scroll and track active section
   useEffect(() => {
@@ -68,6 +96,7 @@ const Navbar = () => {
         $(navbarCollapseRef.current).hasClass('show')
       ) {
         $(navbarCollapseRef.current).collapse('hide');
+        setMenuOpen(false);
       }
     });
     
@@ -93,7 +122,12 @@ const Navbar = () => {
           if (isCurrentActive) {
             link.setAttribute('style', `color: #FCD581 !important; border-bottom: 2px solid #FCD581; padding-bottom: 2px;`);
           } else {
-            link.setAttribute('style', `color: ${isSticky ? '#535353' : '#ffffff'} !important; border-bottom: none; padding-bottom: 0;`);
+            // For mobile always keep text white
+            if (isMobile) {
+              link.setAttribute('style', 'color: #ffffff !important; border-bottom: none; padding-bottom: 0;');
+            } else {
+              link.setAttribute('style', `color: ${isSticky ? '#535353' : '#ffffff'} !important; border-bottom: none; padding-bottom: 0;`);
+            }
           }
         });
       }
@@ -107,7 +141,7 @@ const Navbar = () => {
     
     // Cleanup the interval on component unmount or when dependencies change
     return () => clearInterval(intervalId);
-  }, [isSticky, activeSection]);
+  }, [isSticky, activeSection, isMobile]);
   
   // Smooth scroll to sections
   const scrollToSection = (elementId, e) => {
@@ -138,6 +172,7 @@ const Navbar = () => {
       // Close mobile menu
       if ($(navbarCollapseRef.current).hasClass('show')) {
         $(navbarCollapseRef.current).collapse('hide');
+        setMenuOpen(false);
       }
     }
   };
@@ -147,100 +182,173 @@ const Navbar = () => {
     return activeSection === section;
   };
   
+  // Toggle menu in mobile view
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+  
+  // Function to determine background color based on scroll position and screen size
+  const getBackgroundColor = () => {
+    // For mobile devices, always use dark background
+    if (isMobile) {
+      return '#353535';
+    }
+    // For larger screens, use the sticky logic
+    return isSticky ? '#ffffff' : 'transparent';
+  };
+  
+  // Open auth modal for login
+  const openLoginModal = () => {
+    setAuthMode('login');
+    setIsAuthModalOpen(true);
+    
+    // Close mobile menu if open
+    if ($(navbarCollapseRef.current).hasClass('show')) {
+      $(navbarCollapseRef.current).collapse('hide');
+      setMenuOpen(false);
+    }
+  };
+  
+  // Open auth modal for signup
+  const openSignupModal = () => {
+    setAuthMode('signup');
+    setIsAuthModalOpen(true);
+    
+    // Close mobile menu if open
+    if ($(navbarCollapseRef.current).hasClass('show')) {
+      $(navbarCollapseRef.current).collapse('hide');
+      setMenuOpen(false);
+    }
+  };
+  
+  // Close auth modal
+  const closeAuthModal = () => {
+    setIsAuthModalOpen(false);
+  };
+  
   return (
-    <nav 
-      style={{ 
-        backgroundColor: isSticky ? '#ffffff' : 'transparent',
-        transition: 'background-color 0.3s ease',
-        position: 'fixed',
-        width: '100%',
-        top: 0,
-        zIndex: 1000,
-        padding: '10px 0',
-        boxShadow: isSticky ? '0 2px 10px rgba(0, 0, 0, 0.23)' : 'none'
-      }} 
-      className="navbar navbar-expand-lg fixed-top navbar-custom"
-    >
-      <div className="container">
-        <Link className="navbar-brand" to="/">
-          <img src="/images/logo (2).png" className="navbar-image" alt="Logo" />
-          <div style={{ color: isSticky ? '#212529' : '#ffffff' }} className="navbar-brand navbar-title">
-            REVERION<span style={{ color: isSticky ? '#212529' : '#ffffff' }} className="navbar-brand navbar-span">TECH</span>
-          </div>
-        </Link>
-        
-        <button 
-          className="navbar-toggler" 
-          type="button" 
-          data-bs-toggle="collapse" 
-          data-bs-target="#navbarCollapse" 
-          aria-controls="navbarCollapse" 
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span style={{ color: isSticky ? '#212529' : '#ffffff' }} className="mdi mdi-menu"></span>
-        </button>
+    <>
+      <nav 
+        style={{ 
+          backgroundColor: getBackgroundColor(),
+          transition: 'background-color 0.3s ease',
+          position: 'fixed',
+          width: '100%',
+          top: 0,
+          zIndex: 1000,
+          padding: '10px 0',
+          boxShadow: isSticky && !isMobile ? '0 2px 10px rgba(0, 0, 0, 0.23)' : 'none'
+        }} 
+        className="navbar navbar-expand-lg fixed-top navbar-custom"
+      >
+        <div className="container">
+          <Link className="navbar-brand" to="/">
+            <img src="/images/logo (2).png" className="navbar-image" alt="Logo" />
+            <div style={{ color: isMobile ? '#ffffff' : (isSticky ? '#212529' : '#ffffff') }} className="navbar-brand navbar-title">
+              REVERION<span style={{ color: isMobile ? '#ffffff' : (isSticky ? '#212529' : '#ffffff') }} className="navbar-brand navbar-span">TECH</span>
+            </div>
+          </Link>
+          
+          <button 
+            className="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarCollapse" 
+            aria-controls="navbarCollapse" 
+            aria-expanded={menuOpen}
+            aria-label="Toggle navigation"
+            onClick={toggleMenu}
+          >
+            {/* Use react-icons for the toggle button */}
+            {menuOpen ? (
+              <FaTimes className="menu-icon" />
+            ) : (
+              <FaBars className="menu-icon" />
+            )}
+          </button>
 
-        <div className="collapse navbar-collapse" id="navbarCollapse" ref={navbarCollapseRef}>
-          <ul className="navbar-nav ms-auto">
-            <li className={`nav-item ${isActive('home') ? 'active' : ''}`}>
-              <a 
-                className="nav-link custom-nav-link" 
-                href="#home" 
-                onClick={(e) => scrollToSection('home', e)}
-              >
-                Home
-              </a>
-            </li>
-            <li className={`nav-item ${isActive('about') ? 'active' : ''}`}>
-              <a 
-                className="nav-link custom-nav-link" 
-                href="#about" 
-                onClick={(e) => scrollToSection('about', e)}
-              >
-                About us
-              </a>
-            </li>
-            <li className={`nav-item ${isActive('offer') ? 'active' : ''}`}>
-              <a 
-                className="nav-link custom-nav-link" 
-                href="#offer" 
-                onClick={(e) => scrollToSection('offer', e)}
-              >
-                Services
-              </a>
-            </li>
-            <li className={`nav-item ${isActive('team') ? 'active' : ''}`}>
-              <a 
-                className="nav-link custom-nav-link" 
-                href="#team" 
-                onClick={(e) => scrollToSection('team', e)}
-              >
-                Team
-              </a>
-            </li>
-            <li className={`nav-item ${isActive('price') ? 'active' : ''}`}>
-              <a 
-                className="nav-link custom-nav-link" 
-                href="#price" 
-                onClick={(e) => scrollToSection('price', e)}
-              >
-                Pricing
-              </a>
-            </li>
-            <li className={`nav-item ${isActive('contact') ? 'active' : ''}`}>
-              <a 
-                className="nav-link custom-nav-link" 
-                href="#contact" 
-                onClick={(e) => scrollToSection('contact', e)}
-              >
-                Contact
-              </a>
-            </li>
-          </ul>
+          <div className="collapse navbar-collapse" id="navbarCollapse" ref={navbarCollapseRef}>
+            <ul className="navbar-nav ms-auto">
+              <li className={`nav-item ${isActive('home') ? 'active' : ''}`}>
+                <a 
+                  className="nav-link custom-nav-link" 
+                  href="#home" 
+                  onClick={(e) => scrollToSection('home', e)}
+                >
+                  Home
+                </a>
+              </li>
+              <li className={`nav-item ${isActive('about') ? 'active' : ''}`}>
+                <a 
+                  className="nav-link custom-nav-link" 
+                  href="#about" 
+                  onClick={(e) => scrollToSection('about', e)}
+                >
+                  About us
+                </a>
+              </li>
+              <li className={`nav-item ${isActive('offer') ? 'active' : ''}`}>
+                <a 
+                  className="nav-link custom-nav-link" 
+                  href="#offer" 
+                  onClick={(e) => scrollToSection('offer', e)}
+                >
+                  Services
+                </a>
+              </li>
+              <li className={`nav-item ${isActive('team') ? 'active' : ''}`}>
+                <a 
+                  className="nav-link custom-nav-link" 
+                  href="#team" 
+                  onClick={(e) => scrollToSection('team', e)}
+                >
+                  Team
+                </a>
+              </li>
+              <li className={`nav-item ${isActive('price') ? 'active' : ''}`}>
+                <a 
+                  className="nav-link custom-nav-link" 
+                  href="#price" 
+                  onClick={(e) => scrollToSection('price', e)}
+                >
+                  Pricing
+                </a>
+              </li>
+              <li className={`nav-item ${isActive('contact') ? 'active' : ''}`}>
+                <a 
+                  className="nav-link custom-nav-link" 
+                  href="#contact" 
+                  onClick={(e) => scrollToSection('contact', e)}
+                >
+                  Contact
+                </a>
+              </li>
+              <li className={`button--form ${isSticky ? 'sticky' : ''}`}>
+                <div 
+                  className={`login--button ${isSticky && !isMobile ? 'sticky' : ''}`}
+                  onClick={openLoginModal}
+                >
+                  Log In
+                </div>
+                <div 
+                  className='sign--button'
+                  onClick={openSignupModal}
+                >
+                  Sign Up
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+      
+      {/* Auth Modal */}
+      <AuthModal 
+        isOpen={isAuthModalOpen} 
+        onClose={closeAuthModal} 
+        initialMode={authMode} 
+      />
+    </>
   );
 };
 
