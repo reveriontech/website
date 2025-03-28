@@ -55,7 +55,7 @@ const ChatWidget = () => {
     if (isOpen && !welcomeShown) {
       setIsTyping(true);
       
-      // Simulate AI typing
+      // Simulate AI typing example
       const timer = setTimeout(() => {
         setIsTyping(false);
         setMessages([
