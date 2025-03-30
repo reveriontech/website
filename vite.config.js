@@ -11,9 +11,7 @@ export default defineConfig({
     emptyOutDir: true,
   },
 
-  rollupOptions: {
-      external: ['react-router-dom'],
-    },
+
   optimizeDeps: {
     esbuildOptions: {
       define: {
