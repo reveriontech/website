@@ -5,50 +5,50 @@ const Team = () => {
   const teamMembers = [
     {
       id: 1,
-      name: "Rod Albores",
-      position: "Founder",
+      name: "Rod A.",
+      position: "Founder & CEO",
       image: "images/profile/profile1.jpg"
     },
     {
       id: 2,
-      name: "Sarah Murli",
-      position: "Founder",
+      name: "Mhok S.",
+      position: "CTO",
       image: "images/profile/profile2.jpg"
     },
     {
       id: 3,
-      name: "Eion Morgan",
-      position: "Manager",
+      name: "Darian S",
+      position: "Business Development",
       image: "images/profile/profile3.jpg"
     },
     {
       id: 4,
-      name: "Rambha Godse",
-      position: "Accountant",
+      name: "Jhon Rexey",
+      position: "Frontend Developer",
       image: "images/profile/profile4.jpg"
     },
     {
       id: 5,
-      name: "Rambha Godse",
-      position: "Accountant",
+      name: "Kent A.",
+      position: "Backend Developer",
       image: "images/profile/profile5.jpg"
     },
     {
       id: 6,
-      name: "Rambha Godse",
-      position: "Accountant",
+      name: "Racker Joy S.",
+      position: "Researcher",
       image: "images/profile/profile6.jpg"
     },
     {
       id: 7,
-      name: "Rambha Godse",
-      position: "Accountant",
+      name: "WhiteFish",
+      position: "Lead Creatives",
       image: "images/profile/profile7.jpg"
     },
     {
       id: 8,
-      name: "Rambha Godse",
-      position: "Accountant",
+      name: "Jennifer C.",
+      position: "CFO",
       image: "images/profile/profile8.jpg"
     }
   ];

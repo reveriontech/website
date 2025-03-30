@@ -70,7 +70,7 @@ const Contact = () => {
           <div className="col-12 text-center">
             <div className="section-title" data-aos="fade-up">
               <h4 className="title text-uppercase mb-4">Contact Us</h4>
-              <p className="text-muted mx-auto para-desc mb-0">Shaping the future of decentralized technology</p>
+              <p className="text-muted mx-auto para-desc mb-0">We're here to answer your questions and provide solutions for your technology needs.</p>
             </div>
           </div>
         </div>
@@ -88,7 +88,7 @@ const Contact = () => {
                 <div className="contact-detail">
                   <div className="content d-block overflow-hidden">
                     <h4 className="title mb-0">Call Me</h4>
-                    <p className="text-muted mb-0">+915 5864 548</p>
+                    <p className="text-muted mb-0">+63 82 282 0645</p>
                   </div>
                 </div>
               </div>
@@ -106,8 +106,8 @@ const Contact = () => {
               <div className="col-8">
                 <div className="contact-detail">
                   <div className="content d-block overflow-hidden">
-                    <h4 className="title mb-0">Office</h4>
-                    <p className="text-muted mb-0">Lot3, block14, Phase 9a, Executive Phase,<br/> Deca Homes, Tacunan</p>
+                    <h4 className="title mb-0">Production Center</h4>
+                    <p className="text-muted mb-0">Davao City<br/> Philippines</p>
                   </div>
                 </div>
               </div>
@@ -126,7 +126,7 @@ const Contact = () => {
                 <div className="contact-detail">
                   <div className="content d-block overflow-hidden">
                     <h4 className="title mb-0">Send Me</h4>
-                    <p className="text-muted mb-0">yourname@example.com</p>
+                    <p className="text-muted mb-0">reveriontech@gmail.com</p>
                   </div>
                 </div>
               </div>
