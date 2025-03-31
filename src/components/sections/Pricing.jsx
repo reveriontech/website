@@ -124,8 +124,8 @@ const Pricing = () => {
             <div className="custom-note p-4 bg-light rounded" data-aos="fade-up">
               <h5>Not sure which package is right for you?</h5>
               <p className="mb-3">Our experts can analyze your specific requirements and recommend the best solution for your business.</p>
-              <a href="https://calendly.com/reveriontech" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-                <i className="fas fa-phone-alt mr-2"></i> Schedule a Personalized Consultation
+              <a href="https://forms.clickup.com/9016503780/p/f/8cptvf4-496/BTYBZQ6D05CPYSPJKU/project-intake-form" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                <i className="fas fa-phone-alt mr-2"></i> Start Your Project
               </a>
             </div>
           </div>

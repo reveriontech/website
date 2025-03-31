@@ -225,7 +225,7 @@ const Navbar = () => {
                 href="#price" 
                 onClick={(e) => scrollToSection('price', e)}
               >
-                Pricing
+                Solutions
               </a>
             </li>
             <li className={`nav-item ${isActive('contact') ? 'active' : ''}`}>
