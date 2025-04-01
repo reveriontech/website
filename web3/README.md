@@ -11,6 +11,13 @@ To learn more before you start working with `reverion`, see the following docume
 - [Motoko Programming Language Guide](https://internetcomputer.org/docs/current/motoko/main/motoko)
 - [Motoko Language Quick Reference](https://internetcomputer.org/docs/current/motoko/main/language-manual)
 
+# URLs:
+````
+  Frontend canister via browser:
+    reverion_frontend: https://lh3nq-oyaaa-aaaaj-qnn2q-cai.icp0.io/
+  Backend canister via Candid interface:
+    reverion_backend: https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=la2le-daaaa-aaaaj-qnn2a-cai
+````
 If you want to start working on your project right away, you might want to try the following commands:
 
 ```bash
