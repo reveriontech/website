@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaTimes, FaPaperPlane, FaSmile, FaRobot } from 'react-icons/fa';
+import axios from 'axios';
 
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [message, setMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [welcomeShown, setWelcomeShown] = useState(false);
+  const [userInput, setUserInput] = useState('')
   const [messages, setMessages] = useState([]);
   const [showPrompt, setShowPrompt] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
   const miniPromptRef = useRef(null);
-  const quickMessageRef = useRef('');
+  const [loading, setLoading] = useState(false)
 
   // Force clear localStorage for testing
   useEffect(() => {
@@ -71,38 +72,6 @@ const ChatWidget = () => {
     }
   }, [isOpen, welcomeShown]);
 
-  // Process quick message from mini prompt if available when opening chat
-  useEffect(() => {
-    if (isOpen && quickMessageRef.current && welcomeShown) {
-      const quickMsg = quickMessageRef.current;
-      
-      // Only process if we have a message and welcome has been shown
-      if (quickMsg && messages.length === 1) {
-        // Add the user message (after a small delay to let the welcome message be seen)
-        setTimeout(() => {
-          setMessages(prev => [...prev, {
-            type: 'user',
-            content: quickMsg
-          }]);
-          
-          // Then simulate assistant typing
-          setIsTyping(true);
-          
-          setTimeout(() => {
-            setIsTyping(false);
-            setMessages(prev => [...prev, {
-              type: 'assistant',
-              content: `Thanks for your message about "${quickMsg}"! Our team is working on integrating a real AI assistant. For now, this is a demo of the chat interface.`
-            }]);
-          }, 1500);
-          
-          // Clear the ref
-          quickMessageRef.current = '';
-        }, 500);
-      }
-    }
-  }, [isOpen, welcomeShown, messages.length]);
-
   const toggleChat = () => {
     setIsOpen(!isOpen);
     
@@ -122,47 +91,45 @@ const ChatWidget = () => {
     setIsOpen(true);
   };
 
-  const handleQuickMessageSubmit = (e) => {
-    e.preventDefault();
-    const quickMessage = e.target.elements.quickMessage.value.trim();
-    if (!quickMessage) return;
-    
-    // Store the quick message in ref to be used after chat opens
-    quickMessageRef.current = quickMessage;
-    
-    // Reset form
-    e.target.reset();
-    
-    // Open chat
-    setShowPrompt(false);
-    setIsOpen(true);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!message.trim()) return;
+  const handleSubmit = async () => {
+    if (!userInput.trim()) return
     
     // Add user message
-    const userMessage = { type: 'user', content: message };
+    const userMessage = { role: 'user', content: userInput }
     setMessages([...messages, userMessage]);
+    setUserInput('')
+    setLoading(true)
     
-    // Clear input
-    setMessage('');
-    
-    // Simulate AI response
-    setIsTyping(true);
-    
-    setTimeout(() => {
-      setIsTyping(false);
-      setMessages(prev => [...prev, {
-        type: 'assistant',
-        content: `Thanks for your message! Our team is working on integrating a real AI assistant. For now, this is a demo of the chat interface.`
-      }]);
-    }, 1500);
+    try {
+      const response = await axios.post(
+          'http://localhost:3500/chat',
+          { prompt: userInput },
+          { headers: { 'Content-Type': 'application/json' } }
+      )
+
+      if (response.data?.message) {
+          setMessages((prev) => [...prev, { role: 'ai', content: response.data.message[0].text }])
+        }
+    } catch (error) {
+        console.error('Error fetching AI response:', error)
+    } finally {
+        setLoading(false)
+    }
   };
 
-  // Debug rendering
-  console.log("Rendering with showPrompt =", showPrompt, "isOpen =", isOpen);
+  const renderMessageContent = (content) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g
+
+    return content.split(urlRegex).map((part, index) =>
+      part.match(urlRegex) ? (
+        <a key={index} href={part} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+          {part}
+        </a>
+      ) : (
+        part
+      )
+    )
+  }
 
   return (
     <div className="chat-widget-container">
@@ -187,21 +154,41 @@ const ChatWidget = () => {
           
           <div className="mini-chat-content">
             <div className="mini-chat-message assistant">
-              Hello! I'm your ReverionTech Assistant. How can I help you today?
+
+              {messages.length > 0 ? (
+                    messages.map((msg, index) => (
+                      <div key={index} className={`chat-message ${msg.role}`}>
+                        <div className="message-content">{renderMessageContent(msg.content)}</div>
+                      </div>
+                    ))
+                ) : (
+                    <span>Hello! I'm your ReverionTech Assistant. How can I help you today?</span>
+                )}
+
+              {loading && (
+                <div className="chat-message assistant">
+                  <div className="typing-indicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
+              )}
             </div>
             
-            <form onSubmit={handleQuickMessageSubmit} className="mini-chat-input-form">
+            <div className="mini-chat-input-form">
               <FaSmile className="mini-chat-emoji" />
               <input 
                 type="text" 
                 name="quickMessage"
                 placeholder="Ask me anything..." 
                 className="mini-chat-input"
+                value={userInput} onChange={(e) => setUserInput(e.target.value)}
               />
-              <button type="submit" className="mini-chat-send">
+              <button onClick={handleSubmit} className="mini-chat-send">
                 <FaPaperPlane />
               </button>
-            </form>
+            </div>
           </div>
         </div>
       )}
@@ -231,12 +218,12 @@ const ChatWidget = () => {
           
           <div className="chat-body">
             {messages.map((msg, index) => (
-              <div key={index} className={`chat-message ${msg.type}`}>
-                <div className="message-content">{msg.content}</div>
+              <div key={index} className={`chat-message ${msg.role}`}>
+                <div className="message-content">{renderMessageContent(msg.content)}</div>
               </div>
             ))}
             
-            {isTyping && (
+            {loading && (
               <div className="chat-message assistant">
                 <div className="typing-indicator">
                   <span></span>
@@ -248,21 +235,20 @@ const ChatWidget = () => {
           </div>
           
           <div className="chat-footer">
-            <form onSubmit={handleSubmit} className="chat-input-form">
+            <div className="chat-input-form">
               <button type="button" className="tool-btn">
                 <FaSmile />
               </button>
               <input 
                 type="text" 
                 placeholder="Ask me anything..." 
-                value={message} 
-                onChange={(e) => setMessage(e.target.value)} 
+                value={userInput} onChange={(e) => setUserInput(e.target.value)}
                 className="chat-input"
               />
-              <button type="submit" className="send-btn" disabled={!message.trim()}>
+              <button onClick={handleSubmit} className="send-btn">
                 <FaPaperPlane />
               </button>
-            </form>
+            </div>
           </div>
         </div>
       )}
