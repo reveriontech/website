@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaFacebookF, FaLinkedinIn, FaYoutube, FaInstagram } from 'react-icons/fa';
 
 const Team = () => {
+  // State to track which team member is being hovered
+  const [hoveredMember, setHoveredMember] = useState(null);
+
   // Team members data
   const teamMembers = [
     {
@@ -62,6 +65,15 @@ const Team = () => {
     { icon: <FaInstagram />, title: "Instagram", url: "#" }
   ];
 
+  // Mouse event handlers
+  const handleMouseEnter = (memberId) => {
+    setHoveredMember(memberId);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredMember(null);
+  };
+
   return (
     <section className="section" id="team">
       <div className="container">
@@ -80,7 +92,11 @@ const Team = () => {
         <div className="row" data-aos="fade-up">
           {teamMembers.map((member) => (
             <div className="col-lg-3 col-md-6 col-12" key={member.id}>
-              <div className="team-detail bg-light rounded text-center p-3 pb-4">
+              <div 
+                className={`team-detail bg-light rounded text-center p-3 pb-4 ${hoveredMember === member.id ? 'team-hover-effect' : ''}`}
+                onMouseEnter={() => handleMouseEnter(member.id)}
+                onMouseLeave={handleMouseLeave}
+              >
                 <div className="image position-relative">
                   <img 
                     src={member.image} 
@@ -97,7 +113,7 @@ const Team = () => {
                       <li className="list-inline-item" key={index}>
                         <a 
                           href={social.url} 
-                          className="rounded-circle" 
+                          className={`rounded-circle social-link ${hoveredMember === member.id ? 'social-hover' : ''}`} 
                           title={social.title}
                         >
                           <i>{social.icon}</i>
