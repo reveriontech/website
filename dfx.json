@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "reverion_backend": {
+      "main": "src/reverion_backend/main.mo",
+      "type": "motoko"
+    },
+    "reverion_frontend": {
+      "dependencies": [
+        "reverion_backend"
+      ],
+      "source": [
+        "src/reverion_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "reverion_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
