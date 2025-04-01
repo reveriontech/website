@@ -1,11 +1,11 @@
 {
   "__Candid_UI": {
-    "local": "bw4dl-smaaa-aaaaa-qaacq-cai"
-  },
-  "reverion_backend": {
     "local": "be2us-64aaa-aaaaa-qaabq-cai"
   },
+  "reverion_backend": {
+    "local": "bkyz2-fmaaa-aaaaa-qaaaq-cai"
+  },
   "reverion_frontend": {
-    "local": "br5f7-7uaaa-aaaaa-qaaca-cai"
+    "local": "bd3sg-teaaa-aaaaa-qaaba-cai"
   }
 }
