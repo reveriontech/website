@@ -257,6 +257,59 @@ p {
   }
 }
 
+.tab-hover-effect {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+  border-color: #ffd477 !important;
+  background-color: rgba(255, 212, 119, 0.05);
+  transition: all 0.3s ease;
+}
+
+.capabilities {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+.nav-link.active .capabilities {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+  border-color: #ffd477 !important;
+}
+
+.team-detail {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.team-hover-effect {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid #ffd477 !important;
+  background-color: rgba(255, 212, 119, 0.05);
+  transition: all 0.3s ease;
+}
+
+.social-link {
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  width: 32px;
+}
+
+.rounded-pill {
+  transition: all 0.3s ease;
+}
+
+.team-hover-effect .rounded-pill {
+  border: 1px solid #ffd477;
+}
+
 .btn-primary {
   background-color: #005ED1 !important;
   border: 1px solid #005ED1 !important;

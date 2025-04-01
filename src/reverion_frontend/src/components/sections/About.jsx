@@ -12,10 +12,25 @@ import {
 
 const About = () => {
   const [activeTab, setActiveTab] = useState('pills-cloud');
+  const [hoveredTab, setHoveredTab] = useState(null);
   
   const handleTabClick = (tabId, e) => {
     e.preventDefault();
     setActiveTab(tabId);
+  };
+  
+  // Add these functions for hover state management
+  const handleMouseEnter = (tabId) => {
+    setHoveredTab(tabId);
+  };
+  
+  const handleMouseLeave = () => {
+    setHoveredTab(null);
+  };
+  
+  // Function to determine if a tab should show the hover effect
+  const shouldShowHoverEffect = (tabId) => {
+    return activeTab === tabId || hoveredTab === tabId;
   };
   
   return (
@@ -47,9 +62,11 @@ const About = () => {
                   role="tab"
                   aria-controls="pills-cloud"
                   aria-selected={activeTab === 'pills-cloud'}
+                  onMouseEnter={() => handleMouseEnter('pills-cloud')}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  <div className="capabilities text-center rounded pt-3 pb-3 border shadow-sm">
-                    <div className="icon bg-warning rounded-circle mb-2 p-2 d-inline-flex justify-content-center align-items-center">
+                  <div className={`capabilities text-center rounded pt-3 pb-3 border shadow-sm ${shouldShowHoverEffect('pills-cloud') ? 'tab-hover-effect' : ''}`}>
+                    <div className={`icon ${shouldShowHoverEffect('pills-cloud') ? 'bg-warning' : 'bg-warning'} rounded-circle mb-2 p-2 d-inline-flex justify-content-center align-items-center transition-all`}>
                       <FaCloud className="text-white" size={20} />
                     </div>
                     <h5 className="title font-weight-normal mb-0">UI/UX Web<br /> Design</h5>
@@ -65,9 +82,11 @@ const About = () => {
                   role="tab"
                   aria-controls="pills-smart"
                   aria-selected={activeTab === 'pills-smart'}
+                  onMouseEnter={() => handleMouseEnter('pills-smart')}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  <div className="capabilities text-center rounded pt-3 pb-3 border shadow-sm">
-                    <div className="icon bg-warning rounded-circle mb-2 p-2 d-inline-flex justify-content-center align-items-center">
+                  <div className={`capabilities text-center rounded pt-3 pb-3 border shadow-sm ${shouldShowHoverEffect('pills-smart') ? 'tab-hover-effect' : ''}`}>
+                    <div className={`icon ${shouldShowHoverEffect('pills-smart') ? 'bg-warning' : 'bg-warning'} rounded-circle mb-2 p-2 d-inline-flex justify-content-center align-items-center transition-all`}>
                       <FaLaptop className="text-white" size={20} />
                     </div>
                     <h5 className="title font-weight-normal mb-0">Custom Web Application<br />Development</h5>
@@ -83,9 +102,11 @@ const About = () => {
                   role="tab"
                   aria-controls="pills-apps"
                   aria-selected={activeTab === 'pills-apps'}
+                  onMouseEnter={() => handleMouseEnter('pills-apps')}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  <div className="capabilities text-center rounded pt-3 pb-3 border shadow-sm">
-                    <div className="icon bg-warning rounded-circle mb-2 p-2 d-inline-flex justify-content-center align-items-center">
+                  <div className={`capabilities text-center rounded pt-3 pb-3 border shadow-sm ${shouldShowHoverEffect('pills-apps') ? 'tab-hover-effect' : ''}`}>
+                    <div className={`icon ${shouldShowHoverEffect('pills-apps') ? 'bg-warning' : 'bg-warning'} rounded-circle mb-2 p-2 d-inline-flex justify-content-center align-items-center transition-all`}>
                       <FaShoppingCart className="text-white" size={20} />
                     </div>
                     <h5 className="title font-weight-normal mb-0">Web3 & Blockchain<br />Development</h5>
@@ -101,9 +122,11 @@ const About = () => {
                   role="tab"
                   aria-controls="pills-intelligence"
                   aria-selected={activeTab === 'pills-intelligence'}
+                  onMouseEnter={() => handleMouseEnter('pills-intelligence')}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  <div className="capabilities text-center rounded pt-3 pb-3 border shadow-sm">
-                    <div className="icon bg-warning rounded-circle mb-2 p-2 d-inline-flex justify-content-center align-items-center">
+                  <div className={`capabilities text-center rounded pt-3 pb-3 border shadow-sm ${shouldShowHoverEffect('pills-intelligence') ? 'tab-hover-effect' : ''}`}>
+                    <div className={`icon ${shouldShowHoverEffect('pills-intelligence') ? 'bg-warning' : 'bg-warning'} rounded-circle mb-2 p-2 d-inline-flex justify-content-center align-items-center transition-all`}>
                       <FaLightbulb className="text-white" size={20} />
                     </div>
                     <h5 className="title font-weight-normal mb-0">Enterprise AI<br />Integration</h5>
@@ -120,9 +143,11 @@ const About = () => {
                   role="tab"
                   aria-controls="pills-automation"
                   aria-selected={activeTab === 'pills-automation'}
+                  onMouseEnter={() => handleMouseEnter('pills-automation')}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  <div className="capabilities text-center rounded pt-3 pb-3 border shadow-sm">
-                    <div className="icon bg-warning rounded-circle mb-2 p-2 d-inline-flex justify-content-center align-items-center">
+                  <div className={`capabilities text-center rounded pt-3 pb-3 border shadow-sm ${shouldShowHoverEffect('pills-automation') ? 'tab-hover-effect' : ''}`}>
+                    <div className={`icon ${shouldShowHoverEffect('pills-automation') ? 'bg-warning' : 'bg-warning'} rounded-circle mb-2 p-2 d-inline-flex justify-content-center align-items-center transition-all`}>
                       <FaShoppingCart className="text-white" size={20} />
                     </div>
                     <h5 className="title font-weight-normal mb-0">E-commerce<br />Solutions</h5>
@@ -138,9 +163,11 @@ const About = () => {
                   role="tab"
                   aria-controls="pills-data"
                   aria-selected={activeTab === 'pills-data'}
+                  onMouseEnter={() => handleMouseEnter('pills-data')}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  <div className="capabilities text-center rounded pt-3 pb-3 border shadow-sm">
-                    <div className="icon bg-warning rounded-circle mb-2 p-2 d-inline-flex justify-content-center align-items-center">
+                  <div className={`capabilities text-center rounded pt-3 pb-3 border shadow-sm ${shouldShowHoverEffect('pills-data') ? 'tab-hover-effect' : ''}`}>
+                    <div className={`icon ${shouldShowHoverEffect('pills-data') ? 'bg-warning' : 'bg-warning'} rounded-circle mb-2 p-2 d-inline-flex justify-content-center align-items-center transition-all`}>
                       <FaDatabase className="text-white" size={20} />
                     </div>
                     <h5 className="title font-weight-normal mb-0">Enterprise Data<br />Engineering</h5>
@@ -156,9 +183,11 @@ const About = () => {
                   role="tab"
                   aria-controls="pills-cloud-devops"
                   aria-selected={activeTab === 'pills-cloud-devops'}
+                  onMouseEnter={() => handleMouseEnter('pills-cloud-devops')}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  <div className="capabilities text-center rounded pt-3 pb-3 border shadow-sm">
-                    <div className="icon bg-warning rounded-circle mb-2 p-2 d-inline-flex justify-content-center align-items-center">
+                  <div className={`capabilities text-center rounded pt-3 pb-3 border shadow-sm ${shouldShowHoverEffect('pills-cloud-devops') ? 'tab-hover-effect' : ''}`}>
+                    <div className={`icon ${shouldShowHoverEffect('pills-cloud-devops') ? 'bg-warning' : 'bg-warning'} rounded-circle mb-2 p-2 d-inline-flex justify-content-center align-items-center transition-all`}>
                       <FaRecycle className="text-white" size={20} />
                     </div>
                     <h5 className="title font-weight-normal mb-0">Cloud Migration<br />& DevOps</h5>
@@ -174,9 +203,11 @@ const About = () => {
                   role="tab"
                   aria-controls="pills-seo"
                   aria-selected={activeTab === 'pills-seo'}
+                  onMouseEnter={() => handleMouseEnter('pills-seo')}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  <div className="capabilities text-center rounded pt-3 pb-3 border shadow-sm">
-                    <div className="icon bg-warning rounded-circle mb-2 p-2 d-inline-flex justify-content-center align-items-center">
+                  <div className={`capabilities text-center rounded pt-3 pb-3 border shadow-sm ${shouldShowHoverEffect('pills-seo') ? 'tab-hover-effect' : ''}`}>
+                    <div className={`icon ${shouldShowHoverEffect('pills-seo') ? 'bg-warning' : 'bg-warning'} rounded-circle mb-2 p-2 d-inline-flex justify-content-center align-items-center transition-all`}>
                       <FaSearchDollar className="text-white" size={20} />
                     </div>
                     <h5 className="title font-weight-normal mb-0">SEO & Digital<br />Marketing</h5>
@@ -387,7 +418,6 @@ const About = () => {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
