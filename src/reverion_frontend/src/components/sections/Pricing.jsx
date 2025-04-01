@@ -73,43 +73,85 @@ const Pricing = () => {
           </div>
         </div>
 
-        <div className="row align-items-center mt-5" data-aos="fade-up">
+        <div className="row align-items-stretch mt-5" data-aos="fade-up">
           {pricingPlans.map(plan => (
-            <div className="col-lg-4 col-md-6 p-lg-0 mt-4 pt-2" key={plan.id}>
-              <div className={`pricing-table border rounded ${plan.isHighlighted ? 'business-plan position-relative' : ''} bg-white text-center h-100`}>
-                <h6 className={`pricing-plan rounded-top text-uppercase ${plan.isHighlighted ? 'bg-custom text-light' : 'bg-light'} p-3 mb-0`}>
+            <div 
+              className="col-lg-4 col-md-6 p-lg-0 mt-4" 
+              key={plan.id}
+            >
+              <div 
+                className={`pricing-table border rounded bg-white text-center`}
+                style={{
+                  height: "100%",
+                  minHeight: "480px"
+                }}
+              >
+                <h6 
+                  className="pricing-plan rounded-top text-uppercase text-white p-2 mb-0"
+                  style={{
+                    backgroundColor: plan.id === 2 ? "#f7b924" : "#0d6efd",
+                    fontSize: "0.9rem"
+                  }}
+                >
                   {plan.name}
                 </h6>
-                <div className="pricing-features py-4 px-4">
-                  <div className="mb-4 text-center">
-                    <i className={`${
-                      plan.id === 1 ? "fas fa-rocket" : 
-                      plan.id === 2 ? "fas fa-chart-line" : 
-                      "fas fa-building"
-                    } fa-3x mb-3 ${
-                      plan.isHighlighted ? "text-custom" : "text-primary"
-                    }`}></i>
+                <div 
+                  className="pricing-features py-3 px-3" 
+                  style={{display: "flex", flexDirection: "column", flex: 1}}
+                >
+                  <div className="mb-3 text-center">
+                    <i 
+                      className={`${
+                        plan.id === 1 ? "fas fa-rocket" : 
+                        plan.id === 2 ? "fas fa-chart-line" : 
+                        "fas fa-building"
+                      } fa-2x mb-2`}
+                      style={{color: plan.id === 2 ? "#f7b924" : "#0d6efd"}}
+                    ></i>
                     <p className="text-muted">
                       {plan.id === 1 ? "Essential foundation for new ventures" : 
                       plan.id === 2 ? "Accelerate your business expansion" : 
                       "Enterprise-grade solutions for complex needs"}
                     </p>
                   </div>
-                  <ul className="list-unstyled text-left">
+                  <ul className="list-unstyled text-left" style={{flex: 1}}>
                     {plan.benefits.map((benefit, index) => (
-                      <li className={index > 0 ? "border-top pt-3 mt-3" : ""} key={index}>
+                      <li className={index > 0 ? "border-top pt-2 mt-2" : ""} key={index}>
                         <div className="d-flex align-items-start">
                           <div className="icon-container" style={{minWidth: "30px"}}>
-                            <i className={`fas ${benefit.icon} ${plan.isHighlighted ? "text-custom" : "text-primary"}`}></i>
+                            <i className={`fas ${benefit.icon}`} style={{color: plan.id === 2 ? "#f7b924" : "#0d6efd"}}></i>
                           </div>
                           <span className="ml-2">{benefit.text}</span>
                         </div>
                       </li>
                     ))}
+                    {/* Add extra empty space to shorter lists to maintain consistent height */}
+                    {plan.id === 1 && (
+                      <>
+                        <li className="border-top pt-3 mt-3 invisible">
+                          <div className="d-flex align-items-start">
+                            <div className="icon-container" style={{minWidth: "30px"}}>
+                              <i className="fas fa-check text-primary"></i>
+                            </div>
+                            <span className="ml-2">Spacer item</span>
+                          </div>
+                        </li>
+                      </>
+                    )}
                   </ul>
-                  <div className="mt-4 pt-2">
-                    <a href={`https://calendly.com/reveriontech?package=${plan.name}`} target="_blank" rel="noopener noreferrer" 
-                      className={`btn ${plan.isHighlighted ? 'btn-custom' : 'btn-outline-primary'} w-100`}>
+                  <div className="mt-3 pt-2">
+                    <a 
+                      href={`https://calendly.com/reveriontech?package=${plan.name}`} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="btn btn-outline-primary w-100 py-2"
+                      style={{
+                        backgroundColor: plan.id === 2 ? "#f7b924" : "",
+                        borderColor: plan.id === 2 ? "#f7b924" : "",
+                        color: plan.id === 2 ? "white" : "",
+                        fontSize: "0.9rem"
+                      }}
+                    >
                       <i className="fas fa-comments mr-2"></i> Book Us A Call
                     </a>
                   </div>
@@ -117,18 +159,6 @@ const Pricing = () => {
               </div>
             </div>
           ))}
-        </div>
-        
-        <div className="row justify-content-center mt-5">
-          <div className="col-lg-8 text-center">
-            <div className="custom-note p-4 bg-light rounded" data-aos="fade-up">
-              <h5>Not sure which package is right for you?</h5>
-              <p className="mb-3">Our experts can analyze your specific requirements and recommend the best solution for your business.</p>
-              <a href="https://forms.clickup.com/9016503780/p/f/8cptvf4-496/BTYBZQ6D05CPYSPJKU/project-intake-form" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-                <i className="fas fa-phone-alt mr-2"></i> Start Your Project
-              </a>
-            </div>
-          </div>
         </div>
       </div>
     </section>

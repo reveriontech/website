@@ -19,16 +19,24 @@ const SecondCta = () => {
   };
   
   return (
-    <section className="section" style={{background: "url('images/landingpict1.jpg') center center"}}>
+    <section 
+      className="section" 
+      style={{
+        background: "url('images/landingpict1.jpg') center center",
+        backgroundSize: "cover",
+        minHeight: "300px",
+        height: "10px",
+      }}
+    >
       <div className="bg-overlay"></div>
-      <div className="container">
+      <div className="container py-4">
         <div className="row justify-content-center">
           <div className="col-10 text-center">
             <div className="section-title" data-aos="fade-up">
-              <h4 className="title text-white text-uppercase mb-4">"We refine every detail."</h4>
-              <p className="text-white-50 mx-auto para-desc mb-0">Shaping the future of decentralized technology</p>
+              <h4 className="title text-white text-uppercase mb-3">"We refine every detail."</h4>
+              <p className="text-white-50 mx-auto para-desc">Shaping the future of decentralized technology</p>
             </div>
-            <div>
+            {/* <div>
               <a 
                 href="#contact" 
                 className="btn btn-custom"
@@ -36,7 +44,7 @@ const SecondCta = () => {
               >
                 Contact us
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

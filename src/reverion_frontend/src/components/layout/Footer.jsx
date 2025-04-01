@@ -45,15 +45,11 @@ const Footer = () => {
             <div className="col-lg-3 col-md-5 mt-4 pt-2 mt-lg-0 pt-lg-0">
               <h4 className="text-light text-uppercase footer-head">TAGS</h4>
               <div className="mt-4 d-flex flex-wrap gap-2">
-                <a href="#" className="d-inline-block px-3 py-1 bg-secondary text-white">AGENCY</a>
+                <a href="#" className="d-inline-block px-3 py-1 bg-secondary text-white">Waste2earn</a>
                 <a href="#" className="d-inline-block px-3 py-1 bg-secondary text-white">RESPONSIVE</a>
-                <a href="#" className="d-inline-block px-3 py-1 bg-secondary text-white">SLIDER</a>
+                <a href="#" className="d-inline-block px-3 py-1 bg-secondary text-white">Peaq</a>
                 <a href="#" className="d-inline-block px-3 py-1 bg-secondary text-white">SERVICES</a>
                 <a href="#" className="d-inline-block px-3 py-1 bg-secondary text-white">PRICE</a>
-                <a href="#" className="d-inline-block px-3 py-1 bg-secondary text-white">NEWS</a>
-                <a href="#" className="d-inline-block px-3 py-1 bg-secondary text-white">HERO</a>
-                <a href="#" className="d-inline-block px-3 py-1 bg-secondary text-white">REVIEWS</a>
-                <a href="#" className="d-inline-block px-3 py-1 bg-secondary text-white">CTA</a>
               </div>
             </div>
             

@@ -56,7 +56,7 @@ const Navbar = () => {
     // Function to determine which section is currently in view
     const updateActiveSection = () => {
       // Define all section IDs
-      const sections = ['home', 'about', 'offer', 'team', 'price', 'contact'];
+      const sections = ['home', 'about', 'offer', 'team', 'price', 'contact', 'project'];
       
       // Find which section is currently in view
       const currentSection = sections.find(section => {
@@ -119,7 +119,12 @@ const Navbar = () => {
           const sectionId = link.getAttribute('href').substring(1);
           const isCurrentActive = sectionId === activeSection;
           
-          // Apply styles based on active state and sticky state
+          // We'll handle the project button separately with inline styles
+          if (sectionId === 'project') {
+            return;
+          }
+          
+          // Apply styles based on active state and sticky state for regular links
           if (isCurrentActive) {
             link.setAttribute('style', `color: #FCD581 !important; border-bottom: 2px solid #FCD581; padding-bottom: 2px;`);
           } else {
@@ -255,7 +260,7 @@ const Navbar = () => {
       >
         <div className="container">
           <Link className="navbar-brand" to="/">
-            <img src="/images/logo (2).png" className="navbar-image" alt="Logo" />
+            <img src="/images/1Logo-Reverion.png" className="navbar-image" alt="Logo" />
             <div style={{ color: isMobile ? '#ffffff' : (isSticky ? '#212529' : '#ffffff') }} className="navbar-brand navbar-title">
               REVERION<span style={{ color: isMobile ? '#ffffff' : (isSticky ? '#212529' : '#ffffff') }} className="navbar-brand navbar-span">TECH</span>
             </div>
@@ -280,7 +285,7 @@ const Navbar = () => {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarCollapse" ref={navbarCollapseRef}>
-            <ul className="navbar-nav ms-auto">
+            <ul className="navbar-nav ms-auto mb-0 mb-lg-0 align-items-center">
               <li className={`nav-item ${isActive('home') ? 'active' : ''}`}>
                 <a 
                   className="nav-link custom-nav-link" 
@@ -335,10 +340,11 @@ const Navbar = () => {
                   Contact
                 </a>
               </li>
+             
               
               {user ? (
                 // Show logout button if user is logged in
-                <li className={`button--form ${isSticky ? 'sticky' : ''}`}>
+                <li className={`button--form ${isSticky ? 'sticky' : ''} ms-lg-2`}>
                   <div 
                     className={`login--button ${isSticky && !isMobile ? 'sticky' : ''}`}
                     onClick={handleLogout}
@@ -350,7 +356,7 @@ const Navbar = () => {
                 </li>
               ) : (
                 // Show login/signup buttons if no user
-                <li className={`button--form ${isSticky ? 'sticky' : ''}`}>
+                <li className={`button--form ${isSticky ? 'sticky' : ''} ms-lg-2`}>
                   <div 
                     className={`login--button ${isSticky && !isMobile ? 'sticky' : ''}`}
                     onClick={openLoginModal}

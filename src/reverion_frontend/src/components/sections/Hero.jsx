@@ -33,11 +33,11 @@ const Hero = () => {
                   </p>
                   <div className="mt-4 pt-2">
                     <a 
-                      href="#contact" 
+                      href="#project" 
                       className="btn btn-custom"
-                      onClick={(e) => scrollToSection('contact', e)}
+                      onClick={(e) => scrollToSection('project', e)}
                     >
-                      Contact us
+                     Start your project
                     </a>
                   </div>
                 </div>
